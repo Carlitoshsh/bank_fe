@@ -41,7 +41,7 @@ export default {
       let userId = jwt_decode(token).user_id.toString();
 
       axios
-        .get(`https://mision-tic-bankbe.herokuapp.com/user/${userId}/`, {
+        .get(`https://backendformadorp73.herokuapp.com/user/${userId}/`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
@@ -57,7 +57,7 @@ export default {
     verifyToken: function () {
       return axios
         .post(
-          "https://mision-tic-bankbe.herokuapp.com/refresh/",
+          "https://backendformadorp73.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )
