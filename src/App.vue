@@ -1,7 +1,7 @@
 <template>
   <div id="mi-app" class="app">
     <header>
-      <h1>Banco UN</h1>
+      <span id="brand">Banco UN</span>
       <nav class="nav-option">
         <button v-if="is_auth" v-on:click="loadHome">Inicio</button>
         <button v-if="!is_auth" v-on:click="loadLogIn">Iniciar Sesión</button>
@@ -21,7 +21,7 @@
     </main>
 
     <footer>
-      <h2>Misión TIC 2022</h2>
+      <span>Misión TIC 2022</span>
     </footer>
   </div>
 </template>
@@ -79,14 +79,60 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Encode+Sans:400");
 
-body {
-  margin: 0;
+html {
+  font-size: 100%;
+} /*16px*/
+
+body,
+* {
+  font-family: "Encode Sans", serif;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 3rem 0 1.38rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 3.052rem;
+}
+
+h2 {
+  font-size: 2.441rem;
+}
+
+h3 {
+  font-size: 1.953rem;
+}
+
+h4 {
+  font-size: 1.563rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+small,
+.text_small {
+  font-size: 0.8rem;
 }
 
 #mi-app {
-  font-family: "ZCOOL KuaiLe", Helvetica, Arial, sans-serif;
   color: #2c3e50;
   display: grid;
   grid-template: auto 1fr auto / auto 1fr auto;
@@ -100,6 +146,7 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  height: 150px;
 }
 
 main {
@@ -112,6 +159,7 @@ footer {
   background: #2c3e50;
   color: whitesmoke;
   justify-content: center;
+  height: 50px;
 }
 
 .nav-option {
