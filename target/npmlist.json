@@ -1,0 +1,1 @@
+{"version":"0.1.0","name":"bank_fe","dependencies":{"axios":{"version":"0.23.0"},"bindings":{"version":"1.5.0"},"core-js":{"version":"3.18.2"},"express":{"version":"4.17.1"},"file-uri-to-path":{"version":"1.0.0"},"jwt-decode":{"version":"3.1.2"},"nan":{"version":"2.15.0"},"serve-static":{"version":"1.14.1"},"vue-router":{"version":"4.0.11"},"vue":{"version":"3.2.20"}}}
