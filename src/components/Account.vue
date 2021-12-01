@@ -75,27 +75,3 @@ export default {
 };
 </script>
 
-<style>
-.information {
-  margin: 0;
-  padding: 0%;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.information h1 {
-  font-size: 60px;
-  color: #0f1316;
-}
-.information h2 {
-  font-size: 40px;
-  color: #283747;
-}
-.information span {
-  color: crimson;
-  font-weight: bold;
-}
-</style>

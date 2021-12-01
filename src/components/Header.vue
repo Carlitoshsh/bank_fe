@@ -13,14 +13,3 @@ export default {
   name: "Header",
 };
 </script>
-
-<style>
-header {
-  background: rgb(58, 58, 124);
-  color: white;
-}
-
-span {
-  font-size: x-large;
-}
-</style>
