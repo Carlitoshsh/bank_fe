@@ -4,6 +4,7 @@ import router from './router'
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
 import { createApolloProvider } from '@vue/apollo-option'
 import { setContext } from 'apollo-link-context'
+import "./assets/css/main.css"
 
 const httpLink = createHttpLink({
     uri: 'https://api-gw-mision.herokuapp.com/',

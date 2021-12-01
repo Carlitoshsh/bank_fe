@@ -1,0 +1,16 @@
+.container_logIn_user,
+.container_signUp_user {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container_signUp_user > form,
+.container_logIn_user > form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  border-radius: 12px;
+  background: var(--layout-gris-claro);
+}

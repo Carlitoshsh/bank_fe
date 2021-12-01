@@ -1,0 +1,28 @@
+#mi-app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  height: 100vh;
+}
+
+#mi-app > * {
+  padding: 1rem;
+}
+
+header {
+  background-color: var(--color-primario);
+  color: var(--color-texto-claro);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-option {
+  gap: 1rem;
+  display: flex;
+}
+
+footer {
+  background-color: var(--color-secundario);
+  color: var(--color-texto-claro);
+}

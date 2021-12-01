@@ -1,0 +1,15 @@
+.information {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 0 auto;
+  max-width: 80vh;
+  border-radius: 16px;
+  background: var(--layout-gris-claro);
+}
+
+.details {
+  padding: 1rem;
+  border-radius: 16px;
+  background: var(--color-texto-claro);
+}
