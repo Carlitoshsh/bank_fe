@@ -18,6 +18,31 @@
         v-on:logOut="logOut"
       >
       </router-view>
+
+      <div class="alert alert-primary" role="alert">
+        This is a primary alert—check it out!
+      </div>
+      <div class="alert alert-secondary" role="alert">
+        This is a secondary alert—check it out!
+      </div>
+      <div class="alert alert-success" role="alert">
+        This is a success alert—check it out!
+      </div>
+      <div class="alert alert-danger" role="alert">
+        This is a danger alert—check it out!
+      </div>
+      <div class="alert alert-warning" role="alert">
+        This is a warning alert—check it out!
+      </div>
+      <div class="alert alert-info" role="alert">
+        This is a info alert—check it out!
+      </div>
+      <div class="alert alert-light" role="alert">
+        This is a light alert—check it out!
+      </div>
+      <div class="alert alert-dark" role="alert">
+        This is a dark alert—check it out!
+      </div>
     </main>
 
     <footer>
@@ -77,3 +102,33 @@ export default {
   },
 };
 </script>
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+
+:root {
+  --color-primario: #572488;
+  --color-texto-claro: rgb(231, 231, 231);
+}
+
+#mi-app,
+* {
+  font-family: "Varela Round", sans-serif;
+}
+
+#mi-app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  height: 100vh;
+  background: var(--color-texto-claro);
+}
+
+button {
+  background-color: var(--color-primario);
+  color: var(--color-texto-claro);
+  border: 1px solid var(--color-texto-claro);
+  border-radius: 30px;
+  padding: 0.3rem 0.5rem;
+}
+</style>

@@ -15,7 +15,7 @@
         <br />
         <input
           type="number"
-          vmodel="user.account.balance"
+          v-model="user.balance"
           placeholder="Initial Balance"
         />
         <br />
@@ -27,7 +27,8 @@
 
 
 <script>
-import axios from "axios";
+import gql from "graphql-tag";
+
 export default {
   name: "SignUp",
   data: function () {
@@ -37,27 +38,33 @@ export default {
         password: "",
         name: "",
         email: "",
-        account: {
-          lastChangeDate: new Date().toJSON().toString(),
-          balance: 0,
-          isActive: true,
-        },
+        balance: 0,
       },
     };
   },
   methods: {
-    processSignUp: function () {
-      axios
-        .post("https://backendformadorp73.herokuapp.com/user/", this.user, {
-          headers: {},
+    processSignUp: async function () {
+      await this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation ($userInput: SignUpInput!) {
+              signUpUser(userInput: $userInput) {
+                refresh
+                access
+              }
+            }
+          `,
+          variables: {
+            userInput: this.user,
+          },
         })
         .then((result) => {
-          let dataSignUp = {
+          let resultado = {
             username: this.user.username,
-            token_access: result.data.access,
-            token_refresh: result.data.refresh,
+            token_access: result.data.signUpUser.access,
+            token_refresh: result.data.signUpUser.refresh,
           };
-          this.$emit("completedSignUp", dataSignUp);
+          this.$emit("completedSignUp", resultado);
         })
         .catch((error) => {
           console.log(error);

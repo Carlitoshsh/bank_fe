@@ -7,13 +7,14 @@
         <br />
         <input type="password" v-model="user.password" placeholder="Password" />
         <br />
-        <button type="submit">Iniciar Sesion</button>
+        <button type="submit">Iniciar sesión</button>
       </form>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
+import gql from "graphql-tag";
+
 export default {
   name: "LogIn",
   data: function () {
@@ -25,16 +26,26 @@ export default {
     };
   },
   methods: {
-    processLogInUser: function () {
-      axios
-        .post("https://backendformadorp73.herokuapp.com/login/", this.user, {
-          headers: {},
+    processLogInUser: async function () {
+      await this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation Mutation($credentials: CredentialsInput!) {
+              logIn(credentials: $credentials) {
+                refresh
+                access
+              }
+            }
+          `,
+          variables: {
+            credentials: this.user,
+          },
         })
         .then((result) => {
           let dataLogIn = {
             username: this.user.username,
-            token_access: result.data.access,
-            token_refresh: result.data.refresh,
+            token_access: result.data.logIn.access,
+            token_refresh: result.data.logIn.refresh,
           };
           this.$emit("completedLogIn", dataLogIn);
         })
