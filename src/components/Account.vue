@@ -1,77 +1,108 @@
 <template>
-  <div v-if="loaded" class="information">
-    <h1>Información de su cuenta</h1>
-    <h2>
-      Nombre: <span>{{ name }}</span>
-    </h2>
-    <h2>
-      Saldo: <span>{{ balance }} COP </span>
-    </h2>
-    <h2>
-      Correo electrónico: <span>{{ email }}</span>
-    </h2>
+  <div id="Historial">
+    <div class="container">
+      <h2>
+        Titular Cuenta:
+        <span>{{ username }}</span>
+      </h2>
+      <h2>
+        Saldo:
+        <span>${{ accountByUsername.balance }} COP</span>
+      </h2>
+      <h2>
+        Último Movimiento:
+        <span>
+          {{
+            new Date(accountByUsername.lastChange).toLocaleDateString("es-CO")
+          }}
+          {{
+            new Date(accountByUsername.lastChange).toLocaleTimeString("es-CO")
+          }}
+        </span>
+      </h2>
+    </div>
+    <h2>Transacciones</h2>
+    <div class="table table-striped">
+      <table>
+        <tr>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Origen</th>
+          <th>Destino</th>
+          <th>Valor</th>
+        </tr>
+        <tr v-for="transaction in transactionByUsername" :key="transaction.id">
+          <td>
+            {{ new Date(transaction.date).toLocaleDateString("es-CO") }}
+          </td>
+          <td>
+            {{ new Date(transaction.date).toLocaleTimeString("es-CO") }}
+          </td>
+          <td>{{ transaction.usernameOrigin }}</td>
+          <td>{{ transaction.usernameDestiny }}</td>
+          <td>${{ transaction.value }} COP</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
+
 <script>
-// import jwt_decode from "jwt-decode";
-// import axios from "axios";
-// export default {
-//   name: "Account",
-//   data: function () {
-//     return {
-//       name: "",
-//       email: "",
-//       balance: 0,
-//       loaded: false,
-//     };
-//   },
-//   methods: {
-//     getData: async function () {
-//       if (
-//         localStorage.getItem("token_access") === null ||
-//         localStorage.getItem("token_refresh") === null
-//       ) {
-//         this.$emit("logOut");
-//         return;
-//       }
-//       await this.verifyToken();
-
-//       let token = localStorage.getItem("token_access");
-//       let userId = jwt_decode(token).user_id.toString();
-
-//       axios
-//         .get(`https://backendformadorp73.herokuapp.com/user/${userId}/`, {
-//           headers: { Authorization: `Bearer ${token}` },
-//         })
-//         .then((result) => {
-//           this.name = result.data.name;
-//           this.email = result.data.email;
-//           this.balance = result.data.account.balance;
-//           this.loaded = true;
-//         })
-//         .catch(() => {
-//           this.$emit("logOut");
-//         });
-//     },
-//     verifyToken: function () {
-//       return axios
-//         .post(
-//           "https://backendformadorp73.herokuapp.com/refresh/",
-//           { refresh: localStorage.getItem("token_refresh") },
-//           { headers: {} }
-//         )
-//         .then((result) => {
-//           localStorage.setItem("token_access", result.data.access);
-//         })
-//         .catch(() => {
-//           this.$emit("logOut");
-//         });
-//     },
-//   },
-//   created: async function () {
-//     this.getData();
-//   },
-// };
+import gql from "graphql-tag";
+export default {
+  name: "Account",
+  data: function () {
+    return {
+      username: localStorage.getItem("username") || "none",
+      transactionByUsername: [],
+      accountByUsername: {
+        balance: "",
+        lastChange: "",
+      },
+    };
+  },
+  apollo: {
+    transactionByUsername: {
+      query: gql`
+        query ($username: String!) {
+          transactionByUsername(username: $username) {
+            id
+            usernameOrigin
+            usernameDestiny
+            value
+            date
+          }
+        }
+      `,
+      variables() {
+        return {
+          username: this.username,
+        };
+      },
+    },
+    accountByUsername: {
+      query: gql`
+        query ($username: String!) {
+          accountByUsername(username: $username) {
+            balance
+            lastChange
+          }
+        }
+      `,
+      variables() {
+        return {
+          username: this.username,
+        };
+      },
+    },
+  },
+  created: function () {
+    this.$apollo.queries.transactionByUsername.refetch();
+    this.$apollo.queries.accountByUsername.refetch();
+  },
+};
 </script>
+
+
 

@@ -3,9 +3,12 @@
     <header>
       <span id="brand">Banco UN</span>
       <nav class="nav-option">
-        <button v-if="is_auth" v-on:click="loadHome">Inicio</button>
         <button v-if="!is_auth" v-on:click="loadLogIn">Iniciar Sesión</button>
         <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
+        <button v-if="is_auth" v-on:click="loadHome">Inicio</button>
+        <button v-if="is_auth" v-on:click="loadTransaction">
+          Transacciones
+        </button>
         <button v-if="is_auth" v-on:click="loadAccount">Cuenta</button>
         <button v-if="is_auth" v-on:click="logOut">Cerrar Sesión</button>
       </nav>
@@ -18,31 +21,6 @@
         v-on:logOut="logOut"
       >
       </router-view>
-
-      <div class="alert alert-primary" role="alert">
-        This is a primary alert—check it out!
-      </div>
-      <div class="alert alert-secondary" role="alert">
-        This is a secondary alert—check it out!
-      </div>
-      <div class="alert alert-success" role="alert">
-        This is a success alert—check it out!
-      </div>
-      <div class="alert alert-danger" role="alert">
-        This is a danger alert—check it out!
-      </div>
-      <div class="alert alert-warning" role="alert">
-        This is a warning alert—check it out!
-      </div>
-      <div class="alert alert-info" role="alert">
-        This is a info alert—check it out!
-      </div>
-      <div class="alert alert-light" role="alert">
-        This is a light alert—check it out!
-      </div>
-      <div class="alert alert-dark" role="alert">
-        This is a dark alert—check it out!
-      </div>
     </main>
 
     <footer>
@@ -72,6 +50,9 @@ export default {
     },
     loadLogIn: function () {
       this.$router.push({ name: "logIn" });
+    },
+    loadTransaction: function () {
+      this.$router.push({ name: "transaction" });
     },
     loadSignUp: function () {
       this.$router.push({ name: "signUp" });
@@ -108,6 +89,7 @@ export default {
 
 :root {
   --color-primario: #572488;
+  --color-secundario: #882424;
   --color-texto-claro: rgb(231, 231, 231);
 }
 
@@ -130,5 +112,31 @@ button {
   border: 1px solid var(--color-texto-claro);
   border-radius: 30px;
   padding: 0.3rem 0.5rem;
+}
+
+header,
+main,
+footer {
+  padding: 1rem;
+}
+
+header {
+  background-color: var(--color-primario);
+  color: var(--color-texto-claro);
+  display: flex;
+  align-items: center;
+  height: 5rem;
+
+  justify-content: space-between;
+}
+
+footer {
+  background-color: var(--color-secundario);
+  color: var(--color-texto-claro);
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
 }
 </style>
