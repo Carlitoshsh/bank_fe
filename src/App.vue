@@ -1,6 +1,7 @@
 <template>
   <div id="mi-app" class="app">
     <header>
+      <span @click="toggleMenu()">Menu</span>
       <span id="brand">Banco UN</span>
       <nav class="nav-option">
         <button v-if="!is_auth" v-on:click="loadLogIn">Iniciar Sesión</button>
@@ -14,6 +15,7 @@
       </nav>
     </header>
 
+    <div v-show="showMenu" class="left-side">Menu lateral</div>
     <main>
       <router-view
         v-on:completedLogIn="completedLogIn"
@@ -32,6 +34,9 @@
 <script>
 export default {
   name: "App",
+  data: {
+    showMenu: false,
+  },
   computed: {
     is_auth: {
       get: function () {
@@ -41,6 +46,9 @@ export default {
     },
   },
   methods: {
+    toggleMenu: function () {
+      this.showMenu = !this.showMenu;
+    },
     loadLogIn: function () {
       this.$router.push({ name: "logIn" });
     },
@@ -78,7 +86,7 @@ export default {
 
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Karla&display=swap");
 
 :root {
   --color-primario: #572488;
@@ -88,23 +96,86 @@ export default {
 
 #mi-app,
 * {
-  font-family: "Varela Round", sans-serif;
+  font-family: "Karla", sans-serif;
+  font-size: 100%;
 }
 
 #mi-app {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template: auto 1fr auto / auto 1fr auto;
   width: 100%;
   height: 100vh;
   background: var(--color-texto-claro);
+}
+
+body {
+  background: white;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #000000;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 3.052rem;
+}
+
+h2 {
+  font-size: 2.441rem;
+}
+
+h3 {
+  font-size: 1.953rem;
+}
+
+h4 {
+  font-size: 1.563rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+small,
+.text_small {
+  font-size: 0.8rem;
+}
+
+.left-side {
+  grid-column: 1 / 2;
+  background-color: green;
+}
+
+input {
+  color: var(--color-primario);
+  /* border: 1px solid var(--color-primario);
+   */
+  border: none;
+  border-radius: 10px;
+  padding: 0.4rem 0.6rem;
+  border-radius: 50px;
+  background: linear-gradient(315deg, #f0f0f0, var(--color-texto-claro));
+  box-shadow: -5px -5px 15px #c7c7c7, 5px 5px 15px #f9f9f9;
 }
 
 button {
   background-color: var(--color-primario);
   color: var(--color-texto-claro);
   border: 1px solid var(--color-texto-claro);
-  border-radius: 30px;
-  padding: 0.3rem 0.5rem;
+  border-radius: 50px;
+  padding: 0.4rem 0.6rem;
 }
 
 header,
@@ -119,13 +190,18 @@ header {
   display: flex;
   align-items: center;
   height: 5rem;
-
   justify-content: space-between;
+  grid-column: 1/4;
+}
+
+main {
+  grid-column: 2 / 3;
 }
 
 footer {
   background-color: var(--color-secundario);
   color: var(--color-texto-claro);
+  grid-column: 1 / 4;
 }
 
 nav {

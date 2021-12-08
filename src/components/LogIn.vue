@@ -1,12 +1,10 @@
 <template>
   <div class="logIn_user">
-    <div class="container_logIn_user">
-      <h2>Iniciar sesión</h2>
-      <form v-on:submit.prevent="processLogInUser">
+    <div class="contenedor">
+      <h3>Iniciar sesión</h3>
+      <form class="formulario-login" v-on:submit.prevent="processLogInUser">
         <input type="text" v-model="user.username" placeholder="Username" />
-        <br />
         <input type="password" v-model="user.password" placeholder="Password" />
-        <br />
         <button type="submit">Iniciar sesión</button>
       </form>
     </div>
@@ -19,6 +17,7 @@ export default {
   name: "LogIn",
   data: function () {
     return {
+      isLogin: false,
       user: {
         username: "",
         password: "",
@@ -55,6 +54,27 @@ export default {
         });
     },
   },
+  created() {
+    console.log(this.$router.currentRoute.value.query);
+  },
 };
 </script>
 
+<style scoped>
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: inset -5px -5px 15px #c7c7c7, inset 5px 5px 15px #f9f9f9;
+}
+
+.formulario-login {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+</style>
